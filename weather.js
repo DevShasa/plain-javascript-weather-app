@@ -9,12 +9,15 @@ export function getWeather(lat, long, timezone){
             longitude: long,
             timezone,
         }})
-        .then(({data})=>{
-            return {
+        .then(({data})=>{ // extract data from the response  object
+            console.log("DATA FROM API ->", data)
+            const parsedWeatherData ={
                 current: parseCurrentWeather(data),
                 daily: parseDailyWeather(data),
                 hourly: parseHourlyWeather(data),
             }
+            console.log("PARSED WEATHER DATA ->", parsedWeatherData)
+            return parsedWeatherData
         })
 }
 
