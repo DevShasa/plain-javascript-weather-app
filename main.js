@@ -1,11 +1,33 @@
 import { getWeather } from './weather'
 import { ICON_MAP } from './IconMap'
 
+// prompt the user for permission to use their location 
 
-getWeather(-0.270320, 36.377838, Intl.DateTimeFormat().resolvedOptions().timeZone).then(renderWeather).catch((e)=>{
-    console.log(e)
-    alert("Error getting weather")
-})
+navigator.geolocation.getCurrentPosition(successfulyGotPosition, didNotGetPosition)
+
+function successfulyGotPosition({coords}){
+    // if we successfuly got the position then
+    getWeather(
+        coords.latitude,
+        coords.longitude,
+        Intl.DateTimeFormat().resolvedOptions().timeZone
+    )
+    .then(renderWeather)
+    .catch(e=>{
+        console.error(e)
+        alert("Error getting weather")
+    })
+}
+
+function didNotGetPosition(){
+    alert(
+        "There was an error getting your location. Please allow us to use your location and refresh the page")
+}
+
+// getWeather(-0.270320, 36.377838, Intl.DateTimeFormat().resolvedOptions().timeZone).then(renderWeather).catch((e)=>{
+//     console.log(e)
+//     alert("Error getting weather")
+// })
 
 function renderWeather({current, daily, hourly}){
     renderCurrentWeather(current)
