@@ -10,6 +10,8 @@ function successfulyGotPosition({coords}){
     getWeather(
         coords.latitude,
         coords.longitude,
+        // import.meta.env.VITE_MY_LOCAL_LAT,
+        // import.meta.env.VITE_MY_LOCAL_LONG,
         Intl.DateTimeFormat().resolvedOptions().timeZone
     )
     .then(renderWeather)
@@ -24,10 +26,6 @@ function didNotGetPosition(){
         "There was an error getting your location. Please allow us to use your location and refresh the page")
 }
 
-// getWeather(-0.270320, 36.377838, Intl.DateTimeFormat().resolvedOptions().timeZone).then(renderWeather).catch((e)=>{
-//     console.log(e)
-//     alert("Error getting weather")
-// })
 
 function renderWeather({current, daily, hourly}){
     renderCurrentWeather(current)
